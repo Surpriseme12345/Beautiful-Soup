@@ -1,0 +1,27 @@
+# Import Requests
+import requests
+
+# Import Beautiful Soup
+from bs4 import BeautifulSoup
+
+# Execute request
+# If you’re using a different site just replace the url e.g. r=requests.get(‘put your url in here’)
+r = requests.get('https://www.yelp.com/biz/tesla-san-francisco?osq=Tesla+Dealership')
+
+# Check request status
+print(r.status_code)
+
+# Check result
+r.text
+
+# Make the soup
+soup = BeautifulSoup(r.text,'html.parser')
+
+# Find the reviews
+reviews = soup.find_all(class_='y-css-14rb8f2')
+
+# Loop through and print each review
+for review in reviews:
+    print(review.get_text(),'\n')
+else:
+    print(f"Failed to retrieve the page. Status code: {r.status_code}") # Changed 'response' to 'r'
